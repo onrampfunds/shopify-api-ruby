@@ -97,6 +97,8 @@ module ShopifyAPI
 
       sig { params(api_version: String).void }
       def load_rest_resources(api_version:)
+        # Short-circuit if rest is disabled
+        return if rest_disabled
         # Unload any previous instances - mostly useful for tests where we need to reset the version
         @rest_resource_loader&.setup
         @rest_resource_loader&.unload
